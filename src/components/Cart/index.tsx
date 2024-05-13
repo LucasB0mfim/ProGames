@@ -3,18 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Button from '../Button'
 import Tag from '../Tag'
 
-import { formataPreco } from '../ProductsList'
+import { parseToBrl } from '../../utils'
 import { RootReducer } from '../../store'
 import { close, remove } from '../../store/reducers/cart'
 
-import {
-  Overlay,
-  CartContainer,
-  Sidebar,
-  Prices,
-  Quantily,
-  CartItem
-} from './styles'
+import * as S from './styles'
 
 const Cart = () => {
   //
@@ -36,33 +29,33 @@ const Cart = () => {
   }
   //
   return (
-    <CartContainer className={isOpen ? 'is-open' : ''}>
-      <Overlay onClick={closeCart} />
-      <Sidebar>
+    <S.CartContainer className={isOpen ? 'is-open' : ''}>
+      <S.Overlay onClick={closeCart} />
+      <S.Sidebar>
         <ul>
           {items.map((item) => (
-            <CartItem key={item.id}>
+            <S.CartItem key={item.id}>
               <img src={item.media.thumbnail} alt={item.name} />
               <div>
                 <h3>{item.name}</h3>
                 <Tag>{item.details.category}</Tag>
                 <Tag>{item.details.system}</Tag>
-                <span>{formataPreco(item.prices.current)}</span>
+                <span>{parseToBrl(item.prices.current)}</span>
               </div>
               <button onClick={() => removeItem(item.id)} type="button" />
-            </CartItem>
+            </S.CartItem>
           ))}
         </ul>
-        <Quantily>{items.length} jogo(s) no carrinho</Quantily>
-        <Prices>
-          Total de {formataPreco(getTotalPrice())}{' '}
+        <S.Quantily>{items.length} jogo(s) no carrinho</S.Quantily>
+        <S.Prices>
+          Total de {parseToBrl(getTotalPrice())}{' '}
           <span>em até 6x sem juros</span>
-        </Prices>
+        </S.Prices>
         <Button title="Clique aqui para continuar com a compra" type="button">
           Continuar com a compra
         </Button>
-      </Sidebar>
-    </CartContainer>
+      </S.Sidebar>
+    </S.CartContainer>
   )
 }
 
