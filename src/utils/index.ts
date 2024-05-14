@@ -1,5 +1,3 @@
-import { Game } from '../pages/Home'
-
 // função para formatar moedas:
 export const parseToBrl = (amount = 0) => {
   return new Intl.NumberFormat('pt-BR', {

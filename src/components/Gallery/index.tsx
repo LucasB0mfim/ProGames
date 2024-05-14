@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import Section from '../Section'
-import { GalleryItem } from '../../pages/Home'
 
 import play from '../../assets/images/play.png'
 import zoom from '../../assets/images/zoom.png'
@@ -15,29 +14,27 @@ type Props = {
   items: GalleryItem[]
 }
 
-// Herança do GalleryItem
 interface ModalState extends GalleryItem {
   isVisible: boolean
 }
 
 const Gallery = ({ defaultCover, name, items }: Props) => {
-  //
-  const getMediaCover = (item: GalleryItem) => {
-    if (item.type === 'image') return item.url
-    return defaultCover
-  }
-  //
-  const getMediaIcon = (item: GalleryItem) => {
-    if (item.type === 'image') return zoom
-    return play
-  }
-  //
   const [modal, setModal] = useState<ModalState>({
     isVisible: false,
     type: 'image',
     url: ''
   })
-  //
+
+  const getMediaCover = (item: GalleryItem) => {
+    if (item.type === 'image') return item.url
+    return defaultCover
+  }
+
+  const getMediaIcon = (item: GalleryItem) => {
+    if (item.type === 'image') return zoom
+    return play
+  }
+
   const closeModal = () => {
     setModal({
       isVisible: false,
@@ -63,12 +60,12 @@ const Gallery = ({ defaultCover, name, items }: Props) => {
             >
               <img
                 src={getMediaCover(media)}
-                alt={`Midia ${index + 1} de ${name}`}
+                alt={`Mídia ${index + 1} de ${name}`}
               />
               <S.Action>
                 <img
                   src={getMediaIcon(media)}
-                  alt="Clique para ampliar a mídia"
+                  alt="Clique para maximar a mídia"
                 />
               </S.Action>
             </S.Item>
@@ -88,10 +85,10 @@ const Gallery = ({ defaultCover, name, items }: Props) => {
           )}
         </S.ModalContent>
         <div
-          className="overlay"
           onClick={() => {
             closeModal()
           }}
+          className="overlay"
         ></div>
       </S.Modal>
     </>
